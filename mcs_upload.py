@@ -4,16 +4,14 @@ import json
 import requests
 import socket
 import serial
-import i2c_lcd
+#import i2c_lcd
 import mcs_get
 #import mcs_ldr
+#deviceId = "DweNqI3l" #109550172
+#deviceKey = "aNyIGaL6GdsJZxco"
+deviceId = "DfgskicX" 
+deviceKey = "0WXK7SwuDx2Vp9Qc"
 
-#deviceId = "DxO0kY2u"
-#deviceKey = "87oBeIFDtfZUuo2R"
-#deviceId = "DmNwrsf9"
-#deviceKey = "1y2bYSE70msD2nDL"
-deviceId = "DweNqI3l" #109550172
-deviceKey = "aNyIGaL6GdsJZxco"
 # Set MediaTek Cloud Sand box (MCS) Connection
 def post_to_mcs(payload):
     headers = {"Content-type": "application/json", "deviceKey": deviceKey}
@@ -40,9 +38,9 @@ def get_data (data,mode):
     payload= {"datapoints":[{"dataChnId":mode,"values":{"value":str(data)}}]}
     post_to_mcs(payload)
 
-    if mode == 'ldr':
+    if mode == 'ldr_sensor1':
         mcs_get.ldr()
-    elif mode == 'soil_humidity':
+    elif mode == 'soil_sensor':
         mcs_get.soil()
     time.sleep(1)
     

@@ -8,12 +8,11 @@ import serial
 import music
 import i2c_lcd
 
-#deviceId = "DxO0kY2u"
-#deviceKey = "87oBeIFDtfZUuo2R"
-#deviceId = "DmNwrsf9"
-#deviceKey = "1y2bYSE70msD2nDL"
-deviceId = "DweNqI3l" #109550172
-deviceKey = "aNyIGaL6GdsJZxco"
+
+#deviceId = "DweNqI3l" #109550172
+#deviceKey = "aNyIGaL6GdsJZxco"
+deviceId = "DfgskicX" 
+deviceKey = "0WXK7SwuDx2Vp9Qc"
 
 host = "http://api.mediatek.com"
 headers = {"Content-type": "application/json", "deviceKey": deviceKey}
@@ -58,6 +57,10 @@ def display(sensor):
     r = requests.get(url,headers=headers)
     value = (r.json()["dataChannels"][0]["dataPoints"][0]["values"]["value"])
     if sensor == 'soil_display':
+        print("soil(%) : "+str(value))
+        if value<=1:
+            i2c_lcd.message("                ",0,0,False)
         i2c_lcd.message("soil(%) : "+str(value),  0, 0, False )
     else :
         i2c_lcd.message("ldr(%)  : "+str(value),  1, 0, False )
+        print("ldr(%)  : "+str(value))
