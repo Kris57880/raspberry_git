@@ -1,8 +1,8 @@
 import serial
 import mcs_upload
 mode= {
-    'SOIL' : 1,
-    'LDR' : 0 
+    'SOIL' : 0,
+    'LDR' : 1 
     }
 ser = serial.Serial('/dev/ttyACM0',9600)
 while True:
