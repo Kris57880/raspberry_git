@@ -17,11 +17,13 @@ deviceKey = "0WXK7SwuDx2Vp9Qc"
 host = "http://api.mediatek.com"
 headers = {"Content-type": "application/json", "deviceKey": deviceKey}
 
+now_time =time.strftime(“%H”)
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-ldr_indicator = 14
-soil_indicator = 4
-GPIO.setup(ldr_indicator,GPIO.OUT)
+light = 4
+soil_indicator = 14
+GPIO.setup(light,GPIO.OUT)
 GPIO.setup(soil_indicator,GPIO.OUT)
 
 def ldr():
@@ -32,11 +34,13 @@ def ldr():
     value = (r.json()["dataChannels"][0]["dataPoints"][0]["values"]["value"])
     display("ldr_display")
     if(value==1):
-        print("It's so Dark, Light will turn on.")
-        GPIO.output(ldr_indicator,GPIO.HIGH)
+        if (now_time <=21 or now_time >= 5):
+            print("light will turn on ")
+            GPIO.output(light,GPIO.HIGH)
+
     else :
-        print("It's Bright Enough.")
-        GPIO.output(ldr_indicator,GPIO.LOW)
+        print("light will not turn on")
+        GPIO.output(light,GPIO.LOW)
 def soil():
     endpoint = "/mcs/v2/devices/" + deviceId + "/datachannels/soil_switch/datapoints"
     url = host + endpoint

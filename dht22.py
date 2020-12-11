@@ -23,7 +23,7 @@ try:
         except RuntimeError as error:     # Errors happen fairly often, DHT's are hard to read, just keep going
             print("no detected!")
         # print(error.args[0])
-        time.sleep(30)
+        time.sleep(60)
 except KeyboardInterrupt:
     print('close')
     #i2c_lcd.display_time()
