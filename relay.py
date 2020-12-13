@@ -1,13 +1,12 @@
 import time
 import RPi.GPIO as GPIO
-relay = 4
+relay = 14
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(relay,GPIO.OUT)
 try :
     while True:
         GPIO.output(relay,GPIO.HIGH)
-        time.sleep(10)
-        GPIO.output(relay,GPIO.LOW)
-        time.sleep(5)
+        
 except KeyboardInterrupt :
+    GPIO.output(relay,GPIO.LOW)
     print("close")
