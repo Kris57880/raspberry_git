@@ -60,10 +60,9 @@ def ldr():
                GPIO.output(light,GPIO.LOW)
         else :
             GPIO.output(light,GPIO.LOW)
-def soil():
 
+def soil():
     display("soil_display")
-    
     endpoint = "/mcs/v2/devices/" + deviceId_host + "/datachannels/soil_switch/datapoints"
     headers = {"Content-type": "application/json", "deviceKey": deviceKey_host}
     url = host + endpoint
@@ -71,10 +70,11 @@ def soil():
     value = (r.json()["dataChannels"][0]["dataPoints"][0]["values"]["value"])
     if(value==1):
         print("Soil Need Water!")
-        music.play()
+#        music.play()
         GPIO.output(watering,GPIO.HIGH)
         time.sleep(5)
         GPIO.output(watering,GPIO.LOW)
+        time.sleep(25)
     else :
         print("Water is Enough")
         GPIO.output(watering,GPIO.LOW)
@@ -93,3 +93,9 @@ def display(sensor):
     else :
         i2c_lcd.message("ldr(%)  : "+str(value),  1, 0, False )
         print("ldr(%)  : "+str(value))
+
+while True:
+    ldr()
+    time.sleep(1)
+    soil()
+    time.sleep(1)

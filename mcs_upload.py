@@ -5,7 +5,6 @@ import requests
 import socket
 import serial
 #import i2c_lcd
-import mcs_get
 #import mcs_ldr
 #deviceId = "DweNqI3l" #109550172
 #deviceKey = "aNyIGaL6GdsJZxco"
@@ -30,17 +29,11 @@ def post_to_mcs(payload):
         time.strftime("%c"))
         data = response.read()
         conn.close()
-def get_data (data,mode):
+
+def post_data (data,mode):
     print(mode ,"=",data)
     #i2c_lcd.message(mode +":",0,0,True)
     #i2c_lcd.message(""+str(data),1,0,False)
-    time.sleep(2)
     payload= {"datapoints":[{"dataChnId":mode,"values":{"value":str(data)}}]}
     post_to_mcs(payload)
-
-    if mode == 'ldr_sensor1':
-        mcs_get.ldr()
-    elif mode == 'soil_sensor':
-        mcs_get.soil()
-    time.sleep(1)
     
